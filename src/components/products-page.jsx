@@ -14,61 +14,109 @@ import {
 import { useState } from "react";
 import TryOnModal from "./try-on-modal";
 
-const products = [
-  {
-    id: 1,
-    name: "Emerald Diamond Drop Earrings",
-    code: "Earrings-83868",
-    image:
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=60",
-    price: "$5,999",
-  },
-  {
-    id: 2,
-    name: "Green Cushion Cut Earrings",
-    code: "3D-Graff-ear",
-    image:
-      "https://images.unsplash.com/photo-1603561596112-0a132b757442?w=800&auto=format&fit=crop&q=60",
-    price: "$4,299",
-  },
-  {
-    id: 3,
-    name: "Ruby Diamond Chandelier",
-    code: "216-Y2626e",
-    image:
-      "https://images.unsplash.com/photo-1586104195538-050b9f74f58b?w=800&auto=format&fit=crop&q=60",
-    price: "$7,899",
-  },
-  {
-    id: 4,
-    name: "Sapphire Drop Earrings",
-    code: "DSC_9065-original",
-    image:
-      "https://images.unsplash.com/photo-1635767798638-3665a25be4bb?w=800&auto=format&fit=crop&q=60",
-    price: "$3,999",
-  },
-  {
-    id: 5,
-    name: "Diamond Stud Earrings",
-    code: "E0001306163",
-    image:
-      "https://images.unsplash.com/photo-1633810542706-90e5ff7557be?w=800&auto=format&fit=crop&q=60",
-    price: "$2,499",
-  },
-  {
-    id: 6,
-    name: "Crystal Chandelier Earrings",
-    code: "ER2",
-    image:
-      "https://images.unsplash.com/photo-1602752250015-52934bc45613?w=800&auto=format&fit=crop&q=60",
-    price: "$6,299",
-  },
-];
+// Categorized Products data
+const categorizedProducts = {
+  earrings: [
+    {
+      id: 1,
+      name: "Earrings - 1",
+      code: "Earrings-83868",
+      image: "/images/earring/earring1.jpg",
+      price: "$5,999",
+    },
+    {
+      id: 2,
+      name: "Green Cushion Cut Earrings",
+      code: "3D-Graff-ear",
+      image: "/images/earring/earring2.jpg",
+      price: "$4,299",
+    },
+    {
+      id: 3,
+      name: "Ruby Diamond Chandelier",
+      code: "216-Y2626e",
+      image: "/images/earring/earring3.png",
+      price: "$7,899",
+    },
+    {
+      id: 4,
+      name: "Sapphire Drop Earrings",
+      code: "DSC_9065-original",
+      image: "/images/earring/earring4.png",
+      price: "$3,999",
+    },
+  ],
 
-const categories = ["Earrings", "Necklaces", "Rings", "Bracelets", "Sets"];
+  bracelets: [
+    {
+      id: 5,
+      name: "Gold Bangle Bracelet",
+      code: "Bracelet-33890",
+      image: "/images/bracelet/bracelet1.png",
+      price: "$2,499",
+    },
+    {
+      id: 6,
+      name: "Silver Cuff Bracelet",
+      code: "Bracelet-49302",
+      image: "/images/bracelet/bracelet2.png",
+      price: "$1,799",
+    },
+  ],
+
+  necklaces: [
+    {
+      id: 7,
+      name: "Diamond Pendant Necklace",
+      code: "Necklace-28283",
+      image: "/images/necklace/necklace1.png",
+      price: "$4,499",
+    },
+    {
+      id: 8,
+      name: "Gold Chain Necklace",
+      code: "Necklace-72737",
+      image: "/images/necklace/necklace2.png",
+      price: "$2,199",
+    },
+  ],
+
+  sets: [
+    {
+      id: 9,
+      name: "Diamond Jewelry Set",
+      code: "Set-13492",
+      image: "/images/set/set1.png",
+      price: "$12,499",
+    },
+  ],
+
+  rings: [
+    {
+      id: 10,
+      name: "Emerald Engagement Ring",
+      code: "Ring-19283",
+      image: "/images/ring/ring1.png",
+      price: "$9,999",
+    },
+    {
+      id: 11,
+      name: "Gold Wedding Ring",
+      code: "Ring-23983",
+      image: "/images/ring/ring2.png",
+      price: "$3,499",
+    },
+  ],
+};
+
+const categories = ["earrings", "necklaces", "rings", "bracelets", "sets"];
 
 export default function Page() {
   const [isTryOnModalOpen, setIsTryOnModalOpen] = useState(false); // State for TryOnModal
+  const [activeCategory, setActiveCategory] = useState("earrings"); // Default active category
+
+  // Get the products for the selected category
+  const products = categorizedProducts[activeCategory];
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -101,15 +149,16 @@ export default function Page() {
         <Button variant="ghost" size="icon">
           <ChevronLeft className="h-4 w-4" />
         </Button>
-        <Tabs defaultValue="Earrings">
+        <Tabs defaultValue="earrings">
           <TabsList>
             {categories.map((category) => (
               <TabsTrigger
                 key={category}
                 value={category}
                 className="px-4 py-2"
+                onClick={() => setActiveCategory(category)} // Update active category
               >
-                {category}
+                {category.charAt(0).toUpperCase() + category.slice(1)}
               </TabsTrigger>
             ))}
           </TabsList>
@@ -155,6 +204,7 @@ export default function Page() {
           </Card>
         ))}
       </div>
+
       {isTryOnModalOpen && (
         <TryOnModal
           products={products}
