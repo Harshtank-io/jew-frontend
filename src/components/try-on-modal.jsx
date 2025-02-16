@@ -230,7 +230,7 @@ const TryOnModal = ({ products, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black/75 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg w-11/12 md:w-3/4 lg:w-2/3 xl:w-1/2 h-4/5 flex">
+      <div className="bg-white rounded-lg w-11/12 md:w-3/4 lg:w-2/3 xl:w-1/2 h-4/5 flex md:flex-row flex-col">
         {/* Webcam View */}
         <div className="relative flex-1 flex flex-col items-center justify-center bg-black">
           <Webcam
@@ -260,7 +260,7 @@ const TryOnModal = ({ products, onClose }) => {
         </div>
 
         {/* Product Selection */}
-        <div className="w-1/3 bg-gray-100 p-4 overflow-y-auto">
+        <div className="w-full  md:w-1/3 bg-gray-100 p-4 overflow-y-auto">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold">Try On Products</h3>
             <button
@@ -271,7 +271,7 @@ const TryOnModal = ({ products, onClose }) => {
             </button>
           </div>
 
-          <div className="space-y-3">
+          <div className="md:flex-col flex-row md:flex grid grid-cols-4 grid-flow-row space-x-3  w-full  space-y-3">
             {products.map((product) => (
               <button
                 key={product.id}
