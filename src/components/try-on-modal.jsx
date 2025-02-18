@@ -13,12 +13,12 @@ const Webcam = dynamic(() => import("react-webcam"), {
 const TryOnModal = ({ products, onClose }) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const productImageRef = useRef(null);
+  // const productImageRef = useRef(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [faceMeshLoaded, setFaceMeshLoaded] = useState(false);
-  const [faceMesh, setFaceMesh] = useState(null);
-  const requestAnimationFrameId = useRef(null);
-  const lastVideoTime = useRef(-1);
+  // const [faceMesh, setFaceMesh] = useState(null);
+  // const requestAnimationFrameId = useRef(null);
+  // const lastVideoTime = useRef(-1);
 
   async function loadFaceMesh() {
     try {
@@ -44,184 +44,185 @@ const TryOnModal = ({ products, onClose }) => {
   }
 
   // Load product image when selected
-  useEffect(() => {
-    if (selectedProduct) {
-      const img = new Image();
-      img.src = selectedProduct.image;
-      img.onload = () => {
-        productImageRef.current = img;
-      };
-    }
-  }, [selectedProduct]);
+  // useEffect(() => {
+  //   if (selectedProduct) {
+  //     const img = new Image();
+  //     img.src = selectedProduct.image;
+  //     img.onload = () => {
+  //       productImageRef.current = img;
+  //     };
+  //   }
+  // }, [selectedProduct]);
 
-  const getFaceBoundingBox = (landmarks) => {
-    let minX = Infinity;
-    let minY = Infinity;
-    let maxX = -Infinity;
-    let maxY = -Infinity;
+  // const getFaceBoundingBox = (landmarks) => {
+  //   let minX = Infinity;
+  //   let minY = Infinity;
+  //   let maxX = -Infinity;
+  //   let maxY = -Infinity;
 
-    landmarks.forEach((point) => {
-      minX = Math.min(minX, point.x);
-      minY = Math.min(minY, point.y);
-      maxX = Math.max(maxX, point.x);
-      maxY = Math.max(maxY, point.y);
-    });
+  //   landmarks.forEach((point) => {
+  //     minX = Math.min(minX, point.x);
+  //     minY = Math.min(minY, point.y);
+  //     maxX = Math.max(maxX, point.x);
+  //     maxY = Math.max(maxY, point.y);
+  //   });
 
-    return {
-      x: minX,
-      y: minY,
-      width: maxX - minX,
-      height: maxY - minY,
-    };
-  };
+  //   return {
+  //     x: minX,
+  //     y: minY,
+  //     width: maxX - minX,
+  //     height: maxY - minY,
+  //   };
+  // };
 
-  const drawProductOverlay = (ctx, landmarks, canvas) => {
-    if (!productImageRef.current || !selectedProduct) return;
+  // const drawProductOverlay = (ctx, landmarks, canvas) => {
+  //   if (!productImageRef.current || !selectedProduct) return;
 
-    const bbox = getFaceBoundingBox(landmarks);
+  //   const bbox = getFaceBoundingBox(landmarks);
 
-    // Convert normalized coordinates to pixel coordinates
-    const pixelBbox = {
-      x: bbox.x * canvas.width,
-      y: bbox.y * canvas.height,
-      width: bbox.width * canvas.width,
-      height: bbox.height * canvas.height,
-    };
+  //   // Convert normalized coordinates to pixel coordinates
+  //   const pixelBbox = {
+  //     x: bbox.x * canvas.width,
+  //     y: bbox.y * canvas.height,
+  //     width: bbox.width * canvas.width,
+  //     height: bbox.height * canvas.height,
+  //   };
 
-    // Adjust overlay position and size based on product type
-    let overlayParams;
-    switch (selectedProduct.type) {
-      case "glasses":
-        overlayParams = {
-          x: pixelBbox.x - pixelBbox.width * 0.1,
-          y: pixelBbox.y + pixelBbox.height * 0.3,
-          width: pixelBbox.width * 1.2,
-          height: pixelBbox.height * 0.3,
-        };
-        break;
-      case "hat":
-        overlayParams = {
-          x: pixelBbox.x - pixelBbox.width * 0.2,
-          y: pixelBbox.y - pixelBbox.height * 0.5,
-          width: pixelBbox.width * 1.4,
-          height: pixelBbox.height * 0.8,
-        };
-        break;
-      case "earrings":
-        const leftEar = landmarks[234];
-        const rightEar = landmarks[454];
-        ctx.drawImage(
-          productImageRef.current,
-          leftEar.x * canvas.width - 30,
-          leftEar.y * canvas.height - 15,
-          30,
-          60
-        );
-        ctx.drawImage(
-          productImageRef.current,
-          rightEar.x * canvas.width,
-          rightEar.y * canvas.height - 15,
-          30,
-          60
-        );
-        return;
-      default:
-        overlayParams = {
-          x: pixelBbox.x,
-          y: pixelBbox.y,
-          width: pixelBbox.width,
-          height: pixelBbox.height,
-        };
-    }
+  //   // Adjust overlay position and size based on product type
+  //   let overlayParams;
 
-    ctx.save();
-    ctx.globalCompositeOperation = "source-over";
-    ctx.globalAlpha = 0.9;
-    ctx.drawImage(
-      productImageRef.current,
-      overlayParams.x,
-      overlayParams.y,
-      overlayParams.width,
-      overlayParams.height
-    );
-    ctx.restore();
-  };
+  //   switch (selectedProduct.type) {
+  //     case "glasses":
+  //       overlayParams = {
+  //         x: pixelBbox.x - pixelBbox.width * 0.1,
+  //         y: pixelBbox.y + pixelBbox.height * 0.3,
+  //         width: pixelBbox.width * 1.2,
+  //         height: pixelBbox.height * 0.3,
+  //       };
+  //       break;
+  //     case "hat":
+  //       overlayParams = {
+  //         x: pixelBbox.x - pixelBbox.width * 0.2,
+  //         y: pixelBbox.y - pixelBbox.height * 0.5,
+  //         width: pixelBbox.width * 1.4,
+  //         height: pixelBbox.height * 0.8,
+  //       };
+  //       break;
+  //     case "earrings":
+  //       const leftEar = landmarks[234];
+  //       const rightEar = landmarks[454];
+  //       ctx.drawImage(
+  //         productImageRef.current,
+  //         leftEar.x * canvas.width - 30,
+  //         leftEar.y * canvas.height - 15,
+  //         30,
+  //         60
+  //       );
+  //       ctx.drawImage(
+  //         productImageRef.current,
+  //         rightEar.x * canvas.width,
+  //         rightEar.y * canvas.height - 15,
+  //         30,
+  //         60
+  //       );
+  //       return;
+  //     default:
+  //       overlayParams = {
+  //         x: pixelBbox.x,
+  //         y: pixelBbox.y,
+  //         width: pixelBbox.width,
+  //         height: pixelBbox.height,
+  //       };
+  //   }
 
-  const detectFace = async () => {
-    if (!webcamRef.current || !canvasRef.current || !faceMesh) return;
+  //   ctx.save();
+  //   ctx.globalCompositeOperation = "source-over";
+  //   ctx.globalAlpha = 0.9;
+  //   ctx.drawImage(
+  //     productImageRef.current,
+  //     overlayParams.x,
+  //     overlayParams.y,
+  //     overlayParams.width,
+  //     overlayParams.height
+  //   );
+  //   ctx.restore();
+  // };
 
-    const video = webcamRef.current.video;
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+  // const detectFace = async () => {
+  //   if (!webcamRef.current || !canvasRef.current || !faceMesh) return;
 
-    if (video.readyState === 4) {
-      const videoTime = video.currentTime;
+  //   const video = webcamRef.current.video;
+  //   const canvas = canvasRef.current;
+  //   const ctx = canvas.getContext("2d");
 
-      // Check if the video frame is new
-      if (videoTime !== lastVideoTime.current) {
-        lastVideoTime.current = videoTime;
+  //   if (video.readyState === 4) {
+  //     const videoTime = video.currentTime;
 
-        // Match canvas size to video
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+  //     // Check if the video frame is new
+  //     if (videoTime !== lastVideoTime.current) {
+  //       lastVideoTime.current = videoTime;
 
-        try {
-          // Create a VideoFrame from the video element
-          const results = await faceMesh.detectForVideo(video, videoTime);
+  //       // Match canvas size to video
+  //       canvas.width = video.videoWidth;
+  //       canvas.height = video.videoHeight;
 
-          // Clear previous drawing
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //       try {
+  //         // Create a VideoFrame from the video element
+  //         const results = await faceMesh.detectForVideo(video, videoTime);
 
-          if (results.faceLandmarks && results.faceLandmarks.length > 0) {
-            const landmarks = results.faceLandmarks[0];
+  //         // Clear previous drawing
+  //         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            if (selectedProduct) {
-              drawProductOverlay(ctx, landmarks, canvas);
-            }
+  //         if (results.faceLandmarks && results.faceLandmarks.length > 0) {
+  //           const landmarks = results.faceLandmarks[0];
 
-            // Optional: Draw debug points
-            if (selectedProduct?.debug) {
-              landmarks.forEach((point) => {
-                ctx.beginPath();
-                ctx.arc(
-                  point.x * canvas.width,
-                  point.y * canvas.height,
-                  2,
-                  0,
-                  2 * Math.PI
-                );
-                ctx.fillStyle = "red";
-                ctx.fill();
-              });
-            }
-          }
-        } catch (error) {
-          console.error("Error in face detection:", error);
-        }
-      }
-    }
+  //           if (selectedProduct) {
+  //             drawProductOverlay(ctx, landmarks, canvas);
+  //           }
 
-    // Continue detection loop
-    requestAnimationFrameId.current = requestAnimationFrame(detectFace);
-  };
+  //           // Optional: Draw debug points
+  //           if (selectedProduct?.debug) {
+  //             landmarks.forEach((point) => {
+  //               ctx.beginPath();
+  //               ctx.arc(
+  //                 point.x * canvas.width,
+  //                 point.y * canvas.height,
+  //                 2,
+  //                 0,
+  //                 2 * Math.PI
+  //               );
+  //               ctx.fillStyle = "red";
+  //               ctx.fill();
+  //             });
+  //           }
+  //         }
+  //       } catch (error) {
+  //         console.error("Error in face detection:", error);
+  //       }
+  //     }
+  //   }
 
-  useEffect(() => {
-    if (!faceMesh) {
-      loadFaceMesh();
-    }
+  //   // Continue detection loop
+  //   requestAnimationFrameId.current = requestAnimationFrame(detectFace);
+  // };
 
-    // Start detection when faceMesh is loaded
-    if (faceMesh) {
-      detectFace();
-    }
+  // useEffect(() => {
+  //   if (!faceMesh) {
+  //     loadFaceMesh();
+  //   }
 
-    // Cleanup function
-    return () => {
-      if (requestAnimationFrameId.current) {
-        cancelAnimationFrame(requestAnimationFrameId.current);
-      }
-    };
-  }, [faceMesh, selectedProduct]);
+  //   // Start detection when faceMesh is loaded
+  //   if (faceMesh) {
+  //     detectFace();
+  //   }
+
+  //   // Cleanup function
+  //   return () => {
+  //     if (requestAnimationFrameId.current) {
+  //       cancelAnimationFrame(requestAnimationFrameId.current);
+  //     }
+  //   };
+  // }, [faceMesh, selectedProduct]);
 
   // SSR check
   if (typeof window === "undefined") {
@@ -249,6 +250,11 @@ const TryOnModal = ({ products, onClose }) => {
             className="absolute inset-0 w-full h-full"
             style={{ pointerEvents: "none" }}
           />
+
+          {/* the img tag */}
+          <img src="  // give dynamic path here  " alt="" />
+          {/* ENd of the img tag */}
+
           <div className="absolute top-4 left-4 text-white">
             <h3 className="text-lg font-semibold">
               {faceMeshLoaded ? "Ready!" : "Loading face detection..."}
