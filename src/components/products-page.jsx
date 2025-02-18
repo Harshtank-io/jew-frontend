@@ -23,6 +23,7 @@ const categorizedProducts = {
       code: "Earrings-83868",
       image: "/images/earring/earring1.jpg",
       price: "$5,999",
+      type: "earring", // Added type
     },
     {
       id: 2,
@@ -30,6 +31,7 @@ const categorizedProducts = {
       code: "3D-Graff-ear",
       image: "/images/earring/earring2.jpg",
       price: "$4,299",
+      type: "earring", // Added type
     },
     {
       id: 3,
@@ -37,6 +39,7 @@ const categorizedProducts = {
       code: "216-Y2626e",
       image: "/images/earring/earring3.png",
       price: "$7,899",
+      type: "earring", // Added type
     },
     {
       id: 4,
@@ -44,6 +47,7 @@ const categorizedProducts = {
       code: "DSC_9065-original",
       image: "/images/earring/earring4.png",
       price: "$3,999",
+      type: "earring", // Added type
     },
   ],
 
@@ -54,6 +58,7 @@ const categorizedProducts = {
       code: "Bracelet-33890",
       image: "/images/bracelet/bracelet1.png",
       price: "$2,499",
+      type: "bracelet", // Added type
     },
     {
       id: 6,
@@ -61,6 +66,7 @@ const categorizedProducts = {
       code: "Bracelet-49302",
       image: "/images/bracelet/bracelet2.png",
       price: "$1,799",
+      type: "bracelet", // Added type
     },
   ],
 
@@ -71,6 +77,7 @@ const categorizedProducts = {
       code: "Necklace-28283",
       image: "/images/necklace/necklace1.png",
       price: "$4,499",
+      type: "necklace", // Added type
     },
     {
       id: 8,
@@ -78,6 +85,7 @@ const categorizedProducts = {
       code: "Necklace-72737",
       image: "/images/necklace/necklace2.png",
       price: "$2,199",
+      type: "necklace", // Added type
     },
   ],
 
@@ -88,6 +96,7 @@ const categorizedProducts = {
       code: "Set-13492",
       image: "/images/set/set1.png",
       price: "$12,499",
+      type: "set", // Added type
     },
   ],
 
@@ -98,6 +107,7 @@ const categorizedProducts = {
       code: "Ring-19283",
       image: "/images/ring/ring1.png",
       price: "$9,999",
+      type: "ring", // Added type
     },
     {
       id: 11,
@@ -105,6 +115,7 @@ const categorizedProducts = {
       code: "Ring-23983",
       image: "/images/ring/ring2.png",
       price: "$3,499",
+      type: "ring", // Added type
     },
   ],
 };
