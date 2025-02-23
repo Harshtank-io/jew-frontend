@@ -25,6 +25,10 @@ export default function Header() {
     router.push("/products");
   };
 
+  const handleContact = () => {
+    router.push("/contact-us");
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full bg-[#14121F]">
       <div className="container flex h-[72px] items-center justify-between px-4 md:px-8">
@@ -39,7 +43,7 @@ export default function Header() {
           <NavigationMenu>
             <NavigationMenuList className="gap-8">
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-base font-normal text-white bg-transparent hover:bg-transparent hover:text-white/90 focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent">
+                <NavigationMenuTrigger className="text-base font-normal text-white bg-transparent hover:bg-transparent hover:text-white/90  ">
                   Industries
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -49,7 +53,15 @@ export default function Header() {
                         href="#"
                         className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                       >
-                        Industry 1
+                        Jewllery
+                      </Link>
+                    </NavigationMenuLink>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="#"
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      >
+                        Watch
                       </Link>
                     </NavigationMenuLink>
                   </div>
@@ -69,7 +81,13 @@ export default function Header() {
           >
             Try Demo
           </Button>
-          <ContactModal />
+          <Button
+            variant="secondary"
+            className="h-10 px-6 rounded-md bg-white text-black hover:bg-white/90 font-medium"
+            onClick={handleContact}
+          >
+            Contact Us
+          </Button>
         </div>
 
         {/* Mobile Menu */}
@@ -104,7 +122,14 @@ export default function Header() {
                   >
                     Try Demo
                   </Button>
-                  <ContactModal />
+
+                  <Button
+                    variant="secondary"
+                    className="h-10 px-6 rounded-md bg-white text-[#6E2DFA] hover:bg-white/90 font-medium w-full"
+                    onClick={handleContact} // Open TryOnModal on mobile too
+                  >
+                    Contact Us
+                  </Button>
                 </div>
               </nav>
             </SheetContent>

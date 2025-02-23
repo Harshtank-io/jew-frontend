@@ -96,7 +96,7 @@ export function Footer() {
                   href="mailto:info@mirrar.com"
                   className="text-[#F41DB3] hover:text-[#F41DB3]/90"
                 >
-                  info@mirrar.com
+                  demo@email.com
                 </Link>
               </div>
               <div>
