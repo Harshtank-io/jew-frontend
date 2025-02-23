@@ -231,12 +231,12 @@ const TryOnModal = ({ products, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black/75 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg w-11/12 md:w-3/4 lg:w-2/3 xl:w-1/2 h-4/5 flex md:flex-row flex-col">
+      <div className="bg-white rounded-lg w-full h-full flex md:flex-row flex-col">
         {/* Webcam View */}
-        <div className="relative flex-1 flex flex-col items-center justify-center bg-black">
+        <div className="relative flex-1 flex flex-col items-center justify-center bg-black w-full h-full">
           <Webcam
             ref={webcamRef}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain  "
             mirrored
             screenshotFormat="image/jpeg"
             videoConstraints={{
@@ -245,6 +245,7 @@ const TryOnModal = ({ products, onClose }) => {
               height: 720,
             }}
           />
+
           <canvas
             ref={canvasRef}
             className="absolute inset-0 w-full h-full"
@@ -252,10 +253,14 @@ const TryOnModal = ({ products, onClose }) => {
           />
 
           {/* the img tag */}
-          <img src="  // give dynamic path here  " alt="" />
-          {/* ENd of the img tag */}
+          <img
+            src="your_dynamic_image_path_here.jpg"
+            alt="dynamic"
+            className="absolute top-0 left-0 w-full h-full object-cover"
+          />
+          {/* End of the img tag */}
 
-          <div className="absolute top-4 left-4 text-white">
+          <div className="absolute top-4 left-4 text-white z-10">
             <h3 className="text-lg font-semibold">
               {faceMeshLoaded ? "Ready!" : "Loading face detection..."}
             </h3>
@@ -266,7 +271,7 @@ const TryOnModal = ({ products, onClose }) => {
         </div>
 
         {/* Product Selection */}
-        <div className="w-full  md:w-1/3 bg-gray-100 p-4 overflow-y-auto">
+        <div className="w-full   md:w-1/3 bg-gray-100 p-4 overflow-y-auto">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold">Try On Products</h3>
             <button
@@ -277,24 +282,25 @@ const TryOnModal = ({ products, onClose }) => {
             </button>
           </div>
 
-          <div className="md:flex-col flex-row md:flex grid grid-cols-4 grid-flow-row space-x-3  w-full  space-y-3">
+          <div className="grid grid-cols-2 md:grid-cols-1  gap-3 w-full">
             {products.map((product) => (
               <button
                 key={product.id}
                 onClick={() => setSelectedProduct(product)}
-                className={`w-full p-3 border rounded-lg transition-all
-                  ${
-                    selectedProduct?.id === product.id
-                      ? "border-blue-500 bg-blue-50"
-                      : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
-                  }`}
+                className={`w-full p-3 border rounded-lg transition-all ${
+                  selectedProduct?.id === product.id
+                    ? "border-blue-500 bg-blue-50"
+                    : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
+                }`}
               >
                 <img
                   src={product.image}
                   alt={product.name}
                   className="w-full h-24 object-contain mb-2"
                 />
-                <p className="text-sm font-medium">{product.name}</p>
+                <p className="text-sm font-medium text-center">
+                  {product.name}
+                </p>
               </button>
             ))}
           </div>
